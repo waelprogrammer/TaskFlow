@@ -19,7 +19,7 @@ export default function Register() {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/register', form);
-      login({ _id: data._id, name: data.name, email: data.email }, data.token);
+      login({ _id: data._id, name: data.name, email: data.email, isAdmin: data.isAdmin }, data.token);
       // No navigate() needed — App re-renders automatically when user state changes
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');

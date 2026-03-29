@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
 import Sidebar from './components/Sidebar';
 import LoadingSpinner from './components/LoadingSpinner';
 import ChatBot from './components/ChatBot';
@@ -96,6 +97,7 @@ export default function App() {
               <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
               <Route path="/projects/:id" element={<PageWrapper><ProjectDetail /></PageWrapper>} />
               <Route path="/profile" element={<PageWrapper><Profile /></PageWrapper>} />
+              {user.isAdmin && <Route path="/admin" element={<PageWrapper><Admin /></PageWrapper>} />}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AnimatePresence>

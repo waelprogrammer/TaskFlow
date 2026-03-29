@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, FolderKanban, User, LogOut, Zap, ChevronRight, Search } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, User, LogOut, Zap, ChevronRight, Search, Shield } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 import CommandPalette from './CommandPalette';
 import PomodoroTimer from './PomodoroTimer';
@@ -69,6 +69,26 @@ export default function Sidebar() {
 
         {/* Nav */}
         <nav className="flex-1 p-4 space-y-1 relative">
+          {user?.isAdmin && (
+            <NavLink to="/admin" end>
+              {({ isActive }) => (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className={`relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group mb-1 ${
+                    isActive
+                      ? 'bg-red-500/20 text-white border border-red-500/30'
+                      : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800/60'
+                  }`}
+                >
+                  {isActive && <motion.div layoutId="activeIndicator" className="nav-active-indicator" style={{ background: 'linear-gradient(180deg, #ef4444, #dc2626)' }} />}
+                  <Shield className={`w-5 h-5 ${isActive ? 'text-red-400' : 'group-hover:text-red-400'}`} />
+                  <span>Admin</span>
+                  {isActive && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="ml-auto"><ChevronRight className="w-4 h-4 text-red-400" /></motion.div>}
+                </motion.div>
+              )}
+            </NavLink>
+          )}
           {navItems.map(({ to, icon: Icon, label }, i) => (
             <NavLink key={to} to={to} end={to === '/'}>
               {({ isActive }) => (
