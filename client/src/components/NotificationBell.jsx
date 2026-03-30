@@ -69,7 +69,7 @@ export default function NotificationBell() {
               initial={{ opacity: 0, scale: 0.95, y: -8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -8 }}
-              className="absolute right-0 top-12 z-50 w-80 rounded-2xl border border-gray-700/60 overflow-hidden"
+              className="absolute left-0 top-12 z-50 w-80 rounded-2xl border border-gray-700/60 overflow-hidden"
               style={{ background: 'rgba(15,23,42,0.98)', backdropFilter: 'blur(20px)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800/60">

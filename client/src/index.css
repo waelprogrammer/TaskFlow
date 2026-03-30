@@ -164,10 +164,9 @@
 .nav-active-indicator {
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 6px;
+  bottom: 6px;
   width: 3px;
-  height: 60%;
   background: linear-gradient(180deg, #6366f1, #8b5cf6);
   border-radius: 0 2px 2px 0;
   box-shadow: 0 0 8px rgba(99,102,241,0.6);
