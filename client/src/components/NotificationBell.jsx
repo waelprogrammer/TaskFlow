@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import api from '../api/axios';
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [panelPos, setPanelPos] = useState({ top: 0, left: 0 });
+  const bellRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,9 +47,17 @@ export default function NotificationBell() {
 
   const unread = notifications.length;
 
+  const handleToggle = () => {
+    if (!open && bellRef.current) {
+      const rect = bellRef.current.getBoundingClientRect();
+      setPanelPos({ top: rect.bottom + 8, left: rect.left });
+    }
+    setOpen(!open);
+  };
+
   return (
     <div className="relative">
-      <button onClick={() => setOpen(!open)}
+      <button ref={bellRef} onClick={handleToggle}
         className="relative p-2 text-gray-500 hover:text-gray-200 hover:bg-gray-800/60 rounded-xl transition-all">
         <Bell className="w-5 h-5" />
         {unread > 0 && (
@@ -69,8 +79,8 @@ export default function NotificationBell() {
               initial={{ opacity: 0, scale: 0.95, y: -8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -8 }}
-              className="absolute left-0 top-12 z-50 w-80 rounded-2xl border border-gray-700/60 overflow-hidden"
-              style={{ background: 'rgba(15,23,42,0.98)', backdropFilter: 'blur(20px)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}
+              className="fixed z-[9999] w-80 rounded-2xl border border-gray-700/60 overflow-hidden"
+              style={{ top: panelPos.top, left: panelPos.left, background: 'rgba(15,23,42,0.98)', backdropFilter: 'blur(20px)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800/60">
                 <h3 className="font-semibold text-sm text-white">Notifications</h3>
