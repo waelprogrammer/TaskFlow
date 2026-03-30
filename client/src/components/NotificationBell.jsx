@@ -50,7 +50,9 @@ export default function NotificationBell() {
   const handleToggle = () => {
     if (!open && bellRef.current) {
       const rect = bellRef.current.getBoundingClientRect();
-      setPanelPos({ top: rect.bottom + 8, left: rect.left });
+      const panelWidth = 320;
+      const left = Math.min(rect.left, window.innerWidth - panelWidth - 8);
+      setPanelPos({ top: rect.bottom + 8, left: Math.max(8, left) });
     }
     setOpen(!open);
   };
