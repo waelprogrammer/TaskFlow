@@ -70,7 +70,7 @@ export default function Sidebar() {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-4 space-y-1 relative">
+        <nav className="flex-1 min-h-0 overflow-y-auto p-4 space-y-1 relative">
           {user?.isAdmin && (
             <NavLink to="/admin" end>
               {({ isActive }) => (
