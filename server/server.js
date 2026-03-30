@@ -31,6 +31,8 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tasks', require('./routes/tasks'));
 app.use('/api/chat', require('./routes/chat'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/notes', require('./routes/notes'));
+app.use('/api/habits', require('./routes/habits'));
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {

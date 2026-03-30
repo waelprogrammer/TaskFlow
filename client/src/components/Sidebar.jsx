@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, FolderKanban, User, LogOut, Zap, ChevronRight, Search, Shield } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, User, LogOut, Zap, ChevronRight, Search, Shield, NotebookPen, Flame } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 import CommandPalette from './CommandPalette';
 import PomodoroTimer from './PomodoroTimer';
@@ -10,6 +10,8 @@ import PomodoroTimer from './PomodoroTimer';
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/projects', icon: FolderKanban, label: 'Projects' },
+  { to: '/notes', icon: NotebookPen, label: 'Notes' },
+  { to: '/habits', icon: Flame, label: 'Habits' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 
