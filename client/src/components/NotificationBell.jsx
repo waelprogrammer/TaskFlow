@@ -8,6 +8,7 @@ import api from '../api/axios';
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [seen, setSeen] = useState(false);
   const [panelPos, setPanelPos] = useState({ top: 0, left: 0 });
   const bellRef = useRef(null);
   const navigate = useNavigate();
@@ -36,7 +37,12 @@ export default function NotificationBell() {
           notifs.push({ id: 'all-done', type: 'success', title: 'Amazing work!', message: 'You completed all your tasks!', time: 'Now' });
         }
 
-        setNotifications(notifs);
+        setNotifications(prev => {
+          if (JSON.stringify(prev.map(n => n.id)) !== JSON.stringify(notifs.map(n => n.id))) {
+            setSeen(false);
+          }
+          return notifs;
+        });
       } catch {}
     };
     fetchNotifications();
@@ -44,7 +50,7 @@ export default function NotificationBell() {
     return () => clearInterval(interval);
   }, []);
 
-  const unread = notifications.length;
+  const unread = seen ? 0 : notifications.length;
 
   const handleToggle = () => {
     if (!open && bellRef.current) {
@@ -52,6 +58,7 @@ export default function NotificationBell() {
       const panelWidth = 320;
       const left = Math.min(rect.left, window.innerWidth - panelWidth - 8);
       setPanelPos({ top: rect.bottom + 8, left: Math.max(8, left) });
+      setSeen(true);
     }
     setOpen(!open);
   };
